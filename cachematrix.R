@@ -1,6 +1,9 @@
-## The two functions makeCacheMatrix and cacheSolve, caches the inverse of the matrix
-## makeCacheMatrix creates a "special matrix" object. It has four functions to set, get 
-## value of matrix and to set get inverse of matrix.
+## The following two functions are used to cache the inverse of a matrix.
+## This helps in cost savings by avoiding repeated computations.
+
+## Function 'makeCacheMatrix' creates a "special matrix" object that caches the inverse
+## of a matrix. It has four functions to set, get value of matrix and to set get inverse 
+## matrix respectively.
 
 makeCacheMatrix <- function (x=matrix())
 {
@@ -33,21 +36,25 @@ makeCacheMatrix <- function (x=matrix())
   
 }
 
-## cacheSolve function calculates the inverse of the "special matrix". It first checks if the inverse is
-## already calculated. If it is not, then it computes the inverse and sets it into the cache. 
-## If it is, then it reads the inverse from cache and skips the calculation.
+## Function 'cacheSolve' calculates the inverse of the "special matrix". 
+## It first checks if the inverse is already calculated. If it is not, then it computes
+## the inverse and sets it into the cache. If it is, then it reads the inverse from cache 
+## and skips the calculation.
 
-cacheSolve <- function(x, ...) {
-  m <- x$getMatInverse()
-  ## checks if inverse is already calculated
-  if(!is.null(m)) {
-    message("getting cached data")
-    return(m)
-  }
-  ##if inverse is not calculated, get the matrix and compute the inverse
+cacheSolve <- function(x, ...) 
+{
+    m <- x$getMatInverse()
+    
+    ## checks if inverse is already calculated
+    if(!is.null(m)) 
+    {
+      message("getting cached data")
+      return(m)
+    }
+   ## if inverse is not calculated, get the matrix and compute the inverse
   data <- x$get()
-  print(data)
   m <- solve(data)
+  
   ##set the outcome into cache
   x$setMatInverse(m)
   m
